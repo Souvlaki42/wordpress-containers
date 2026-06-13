@@ -38,6 +38,10 @@ services:
 
   php:
     container_name: php
+    userns_mode: keep-id
+    user: wp
+    group_add:
+      - wp
     build:
       context: .
       dockerfile: php.dockerfile
