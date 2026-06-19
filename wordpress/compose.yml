@@ -1,20 +1,27 @@
 networks:
   wordpress:
 
+volumes:
+  caddy_data:
+  caddy_config:
+
 services:
   site:
-    container_name: nginx
-    build:
-      context: .
-      dockerfile: nginx.dockerfile
+    container_name: caddy
+    image: caddy:alpine
+    restart: unless-stopped
     depends_on:
-      - php
-      - mysql
+      - "php"
+      - "mysql"
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     volumes:
       - ./site:/var/www/html
+      - ./caddy:/etc/caddy
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       wordpress:
         aliases:

@@ -1,0 +1,6 @@
+wp.local {
+	tls internal
+	root * /var/www/html
+	php_fastcgi php:9000
+	file_server
+}

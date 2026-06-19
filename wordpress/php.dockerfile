@@ -46,11 +46,3 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # Clean up apk cache
 RUN rm -rf /var/cache/apk/*
-
-# Add mkcert's root certificate into the container
-ADD ./rootCA.pem /usr/local/share/ca-certificates/my-cert.crt
-
-# Update certificate authorities
-RUN cat /usr/local/share/ca-certificates/my-cert.crt >> /etc/ssl/certs/ca-certificates.crt && \
-  apk --no-cache add \
-  curl
